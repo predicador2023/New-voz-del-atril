@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>La Voz del Atril</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* RESET BASE */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #181818;
+      color: #f5f5f5;
+      line-height: 1.6;
+      transition: background-color 0.6s ease, color 0.6s ease;
+    }
+
+    /* MODO CLARO */
+    .modo-claro {
+      background-color: #f5f5f5;
+      color: #181818;
+    }
+    .modo-claro nav {
+      background-color: #ffffff;
+      border-bottom: 2px solid #fbbc05;
+    }
+    .modo-claro .manifiesto,
+    .modo-claro .atril {
+      background-color: #eeeeee;
+      color: #111;
+    }
+    .modo-claro nav ul li a {
+      color: #181818;
+    }
+    .modo-claro nav ul li a:hover {
+      color: #fbbc05;
+    }
+
+    /* NAVBAR FIJO */
+    nav {
+      position: fixed;
+      width: 100%;
+      background: #121212;
+      border-bottom: 2px solid #fbbc05;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 999;
+    }
+    nav h1 {
+      font-size: 1.4rem;
+      color: #fbbc05;
+      font-family: 'Unbounded', sans-serif;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #f5f5f5;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #fbbc05;
+    }
+
+    /* BOTÓN MODO */
+    .modo-btn {
+      background-color: transparent;
+      border: 2px solid #fbbc05;
+      color: #fbbc05;
+      padding: 0.3rem 0.8rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .modo-btn:hover {
+      background-color: #fbbc05;
+      color: #121212;
+    }
+
+    /* SECCIÓN MANIFIESTO */
+    .manifiesto {
+      padding: 7rem 2rem 3rem;
+      background-color: #1c1c1c;
+      border-left: 5px solid #fbbc05;
+    }
+    .manifiesto h2 {
+      font-size: 2.5rem;
+      color: #fbbc05;
+      font-family: 'Unbounded', sans-serif;
+      margin-bottom: 1rem;
+    }
+    .manifiesto p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    /* HISTORIAS DEL ATRIL */
+    #historias-del-atril {
+      padding: 3rem 2rem;
+    }
+    #historias-del-atril h2 {
+      font-size: 2.3rem;
+      color: #fbbc05;
+      font-family: 'Unbounded', sans-serif;
+      margin-bottom: 1rem;
+    }
+    #historias-del-atril p.intro {
+      font-size: 1.1rem;
+      font-style: italic;
+      margin-bottom: 2rem;
+      opacity: 0.85;
+    }
+    .atril {
+      background-color: #232323;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      margin-bottom: 3rem;
+    }
+    .atril img {
+      width: 100%;
+      max-width: 720px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(255,188,5,0.6);
+      margin-bottom: 1rem;
+    }
+    .atril h3 {
+      font-size: 2rem;
+      color: #fbbc05;
+      font-family: 'Unbounded', sans-serif;
+      margin-bottom: 0.5rem;
+    }
+    .atril p {
+      font-size: 1rem;
+      margin-top: 1rem;
+      white-space: pre-line;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      .manifiesto h2,
+      #historias-del-atril h2 {
+        font-size: 2rem;
+      }
+      .atril h3 {
+        font-size: 1.5rem;
+      }
+    }
+    
+  </style>
+</head>
+<script>
+  function compartirWhatsApp(titulo, url) {
+    const mensaje = `🔥 Escuchá esto: ${titulo} – ${url}`;
+    const enlace = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
+    window.open(enlace, '_blank');
+  }
+
+  function compartirTwitter(titulo, url) {
+    const mensaje = `${titulo} ✨ ${url}`;
+    const enlace = `https://twitter.com/intent/tweet?text=${encodeURIComponent(mensaje)}`;
+    window.open(enlace, '_blank');
+  }
+
+  function compartirInstagram() {
+    alert("🟣 Instagram no permite compartir directo desde la web. Pero podés capturar la imagen del episodio y subirla con el título profético.");
+  }
+
+  function copiarEnlace(url) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert("📋 Enlace copiado al portapapeles!");
+    }, () => {
+      alert("⚠️ No se pudo copiar el enlace. Probá manualmente.");
+    });
+  }
+</script>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h1>La Voz del Atril</h1>
+    <ul>
+      <li><a href="#manifiesto">Manifiesto</a></li>
+      <li><a href="#historias-del-atril">Historias</a></li>
+    </ul>
+    <button class="modo-btn" onclick="alternarModo()">☀️ / 🌙</button>
+  </nav>
+
+  <!-- MANIFIESTO -->
+  <section class="manifiesto" id="manifiesto">
+    <h2>Manifiesto Profético</h2>
+    <p>
+      Acá los burros tienen voz, Jonás viaja en colectivo y las parábolas se cruzan con grafitis y auriculares.
+      Este no es un púlpito tradicional. Es una esquina donde la reflexión se mezcla con risa, y las historias
+      milenarias se visten de hoodie y zapatillas.
+    </p>
+  </section>
+
+  <!-- HISTORIAS DEL ATRIL -->
+  <section id="historias-del-atril">
+    <h2>Historias del Atril</h2>
+    <p class="intro">Relatos modernos que cruzan fe, humor y calle. Escuchalos, compartilos, vivilos.</p>
+
+    <div class="atril">
+      <img src="img/moises-lavanderia.png" alt="Moisés en la lavandería autoservicio" />
+      <h3>Moisés en la lavandería autoservicio</h3>
+      <audio controls>
+        <source src="audio/moises.mp3" type="audio/mpeg" />
+        Tu navegador no soporta audio. ¿Lavamos eso también? 😅
+      </audio>
+      <p>
+Dicen que los milagros ocurren en el desierto… pero hoy vamos a ver que también pueden pasar entre suavizante y ropa mal separada.
+
+Moisés llega a la lavandería con dos tablas de piedra bajo el brazo. No por estilo… por necesidad. El polvo del Sinaí no se va solo. Y ni hablar de los pecados incrustados.
+
+Una señora le dice: “Querido, eso hay que ponerlo en ciclo delicado. No querrás que se te borre un mandamiento, ¿no?”
+
+Mientras la máquina gira, Moisés reflexiona:
+¿Y si ‘No mentirás’ viene con prelavado emocional?
+¿Y si necesitamos limpiar nuestras culpas más seguido que nuestras túnicas?
+
+La pantalla dice: “Quedan 10 minutos”.
+Justo lo que le tomó al pueblo para hacer otro dios.
+
+Moisés sonríe. Descubre que el perdón… también tiene tiempos programados.
+
+Esto fue La Voz del Atril.
+Y si no creés en milagros urbanos, vení a lavar tu conciencia con nosotros. Hay promo 2x1 en misericordia y suavizante.
+      </p>
+    </div>
+    <div class="atril">
+  <img src="img/jonas-bondi.png" alt="Jonás dormido en el último asiento del bondi" />
+  <h3>Jonás dormido en el último asiento del bondi</h3>
+  <audio controls>
+    <source src="audio/jonas.mp3" type="audio/mpeg" />
+    Tu navegador no soporta audio. ¿Te estás escondiendo del propósito? 😅
+  </audio>
+  <p>
+Jonás evita el llamado. Se sube al 146 rumbo al barrio opuesto, creyendo que Dios no lee mapas.  
+En el último asiento, entre auriculares y cabezazos al vidrio, empieza a soñar con ballenas que tienen bocas tipo colectivo.
+
+Una señora le pregunta si baja en Retiro, y él murmura “En Nineveh no paran”.
+
+La SUBE le marca saldo negativo, pero él sigue durmiendo.  
+Y en cada frenada, el destino lo zarandea con avisos proféticos.
+
+¿Y si el asiento del fondo no es refugio... sino antesala de propósito?
+
+Esto fue La Voz del Atril.  
+Si alguna vez te dormiste en el colectivo que lleva tu llamado, Jonás también lo hizo.  
+Pero Dios… sigue esperando en la próxima parada.
+  </p>
+
+  <!-- BOTONES COMPARTIR -->
+  <div class="compartir-redes">
+    <button onclick="compartirWhatsApp('Jonás dormido en el último asiento del bondi', 'https://lavozdelatril.com/jonas')">🟢 WhatsApp</button>
+    <button onclick="compartirTwitter('Jonás dormido en el último asiento del bondi', 'https://lavozdelatril.com/jonas')">🔵 X</button>
+    <button onclick="compartirInstagram()">🟣 Instagram</button>
+    <button onclick="copiarEnlace('https://lavozdelatril.com/jonas')">📋 Copiar</button>
+  </div>
+</div>
+
+  </section>
+
+  <script>
+    function alternarModo() {
+      document.body.classList.toggle('modo-claro');
+    }
+  </script>
+</body>
+</html>
