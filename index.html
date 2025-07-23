@@ -183,13 +183,26 @@
     alert("🟣 Instagram no permite compartir directo desde la web. Pero podés capturar la imagen del episodio y subirla con el título profético.");
   }
 
-  function copiarEnlace(url) {
+ /* function copiarEnlace(url) {
     navigator.clipboard.writeText(url).then(() => {
       alert("📋 Enlace copiado al portapapeles!");
     }, () => {
       alert("⚠️ No se pudo copiar el enlace. Probá manualmente.");
     });
-  }
+  } */
+
+function copiarEnlace() {
+  const url = window.location.href; // Esto obtiene la URL actual del navegador
+
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      alert("¡URL actual copiada al portapapeles!");
+    })
+    .catch(err => {
+      console.error("Error al copiar la URL:", err);
+    });
+}
+
 </script>
 
 <body>
@@ -279,11 +292,22 @@ Pero Dios… sigue esperando en la próxima parada.
 </div>
 
   </section>
+   <section class="seccion-parabolas">
+    <h2>Parábolas Urbanas</h2>
+    <p>Pequeñas historias con mensajes gigantes. Compartilas y hacelas circular como sticker espiritual.</p>
+
+    <!-- 📎 Botón para copiar URL -->
+    <button class="btn-copiar" onclick="copiarEnlace()">📎 Copiar URL de esta página</button>
+    <div id="mensajeConfirmacion" class="mensaje"></div>
+  </section>
 
   <script>
     function alternarModo() {
       document.body.classList.toggle('modo-claro');
     }
   </script>
+   <footer>
+    <p>&copy; 2025 La Voz del Atril. Narrativa con alma.</p>
+  </footer>
 </body>
 </html>
