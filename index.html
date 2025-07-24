@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>La Voz del Atril</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-    /* RESET BASE */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -16,7 +15,6 @@
       transition: background-color 0.6s ease, color 0.6s ease;
     }
 
-    /* MODO CLARO */
     .modo-claro {
       background-color: #f5f5f5;
       color: #181818;
@@ -30,14 +28,7 @@
       background-color: #eeeeee;
       color: #111;
     }
-    .modo-claro nav ul li a {
-      color: #181818;
-    }
-    .modo-claro nav ul li a:hover {
-      color: #fbbc05;
-    }
 
-    /* NAVBAR FIJO */
     nav {
       position: fixed;
       width: 100%;
@@ -68,8 +59,6 @@
     nav ul li a:hover {
       color: #fbbc05;
     }
-
-    /* BOTÓN MODO */
     .modo-btn {
       background-color: transparent;
       border: 2px solid #fbbc05;
@@ -78,14 +67,8 @@
       border-radius: 30px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s ease;
-    }
-    .modo-btn:hover {
-      background-color: #fbbc05;
-      color: #121212;
     }
 
-    /* SECCIÓN MANIFIESTO */
     .manifiesto {
       padding: 7rem 2rem 3rem;
       background-color: #1c1c1c;
@@ -102,7 +85,6 @@
       opacity: 0.95;
     }
 
-    /* HISTORIAS DEL ATRIL */
     #historias-del-atril {
       padding: 3rem 2rem;
     }
@@ -118,6 +100,7 @@
       margin-bottom: 2rem;
       opacity: 0.85;
     }
+
     .atril {
       background-color: #232323;
       border-radius: 12px;
@@ -129,14 +112,12 @@
       width: 100%;
       max-width: 720px;
       border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255,188,5,0.6);
       margin-bottom: 1rem;
     }
     .atril h3 {
       font-size: 2rem;
       color: #fbbc05;
       font-family: 'Unbounded', sans-serif;
-      margin-bottom: 0.5rem;
     }
     .atril p {
       font-size: 1rem;
@@ -144,70 +125,105 @@
       white-space: pre-line;
     }
 
-    /* RESPONSIVO */
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-      }
-      .manifiesto h2,
-      #historias-del-atril h2 {
-        font-size: 2rem;
-      }
-      .atril h3 {
-        font-size: 1.5rem;
-      }
+    .compartir-redes {
+      margin-top: 1rem;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
     }
-    
+    .compartir-redes button {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-copiar {
+      background-color: #333;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 20px;
+    }
+
+    .btn-copiar:hover {
+      background-color: #555;
+    }
+
+    .mensaje {
+      font-size: 16px;
+      margin-top: 12px;
+      color: #00ffaa;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .mensaje.visible {
+      opacity: 1;
+    }
+
+    footer {
+      background-color: #121212;
+      text-align: center;
+      padding: 20px;
+    }
   </style>
+
+  <script>
+    function alternarModo() {
+      document.body.classList.toggle('modo-claro');
+    }
+
+    function compartirWhatsApp(titulo, url) {
+      const mensaje = `🔥 Escuchá esto: ${titulo} – ${url}`;
+      const enlace = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
+      window.open(enlace, '_blank');
+    }
+
+    function compartirTwitter(titulo, url) {
+      const mensaje = `${titulo} ✨ ${url}`;
+      const enlace = `https://x.com/intent/tweet?text=${encodeURIComponent(mensaje)}`;
+      window.open(enlace, '_blank');
+    }
+
+    function compartirInstagram() {
+      alert("🟣 Instagram no permite compartir directo desde la web. Pero podés capturar la imagen y subirla con el título profético.");
+    }
+
+    function copiarEnlace() {
+      const url = window.location.href;
+      const mensaje = document.getElementById("mensajeConfirmacion");
+      const boton = document.querySelector(".btn-copiar");
+
+      navigator.clipboard.writeText(url)
+        .then(() => {
+          mensaje.textContent = "✅ ¡Enlace copiado con éxito!";
+          mensaje.classList.add("visible");
+
+          const originalTexto = boton.textContent;
+          boton.textContent = "✅ ¡Copiado!";
+          boton.style.backgroundColor = "#006644";
+
+          setTimeout(() => {
+            mensaje.classList.remove("visible");
+            boton.textContent = originalTexto;
+            boton.style.backgroundColor = "#333";
+          }, 2000);
+        })
+        .catch(err => {
+          console.error("Error al copiar la URL:", err);
+        });
+    }
+  </script>
 </head>
-<script>
-  function compartirWhatsApp(titulo, url) {
-    const mensaje = `🔥 Escuchá esto: ${titulo} – ${url}`;
-    const enlace = `https://api.whatsapp.com/send?text=${encodeURIComponent(mensaje)}`;
-    window.open(enlace, '_blank');
-  }
-
-  function compartirTwitter(titulo, url) {
-    const mensaje = `${titulo} ✨ ${url}`;
-    const enlace = `https://twitter.com/intent/tweet?text=${encodeURIComponent(mensaje)}`;
-    window.open(enlace, '_blank');
-  }
-
-  function compartirInstagram() {
-    alert("🟣 Instagram no permite compartir directo desde la web. Pero podés capturar la imagen del episodio y subirla con el título profético.");
-  }
-
- /* function copiarEnlace(url) {
-    navigator.clipboard.writeText(url).then(() => {
-      alert("📋 Enlace copiado al portapapeles!");
-    }, () => {
-      alert("⚠️ No se pudo copiar el enlace. Probá manualmente.");
-    });
-  } */
-
-function copiarEnlace() {
-  const url = window.location.href; // Esto obtiene la URL actual del navegador
-
-  navigator.clipboard.writeText(url)
-    .then(() => {
-      alert("¡URL actual copiada al portapapeles!");
-    })
-    .catch(err => {
-      console.error("Error al copiar la URL:", err);
-    });
-}
-
-</script>
 
 <body>
-
-  <!-- NAVBAR -->
   <nav>
     <h1>La Voz del Atril</h1>
     <ul>
@@ -217,7 +233,6 @@ function copiarEnlace() {
     <button class="modo-btn" onclick="alternarModo()">☀️ / 🌙</button>
   </nav>
 
-  <!-- MANIFIESTO -->
   <section class="manifiesto" id="manifiesto">
     <h2>Manifiesto Profético</h2>
     <p>
@@ -227,19 +242,20 @@ function copiarEnlace() {
     </p>
   </section>
 
-  <!-- HISTORIAS DEL ATRIL -->
   <section id="historias-del-atril">
     <h2>Historias del Atril</h2>
     <p class="intro">Relatos modernos que cruzan fe, humor y calle. Escuchalos, compartilos, vivilos.</p>
 
-    <div class="atril">
-      <img src="img/moises-lavanderia.png" alt="Moisés en la lavandería autoservicio" />
-      <h3>Moisés en la lavandería autoservicio</h3>
-      <audio controls>
-        <source src="audio/moises.mp3" type="audio/mpeg" />
-        Tu navegador no soporta audio. ¿Lavamos eso también? 😅
-      </audio>
-      <p>
+    <!-- MOISÉS -->
+   
+<div class="atril">
+  <img src="img/moises-lavanderia.png" alt="Moisés en la lavandería autoservicio" />
+  <h3>Moisés en la lavandería autoservicio</h3>
+  <audio controls>
+    <source src="audio/moises.mp3" type="audio/mpeg" />
+    Tu navegador no soporta audio. ¿Lavamos eso también? 😅
+  </audio>
+  <p>
 Dicen que los milagros ocurren en el desierto… pero hoy vamos a ver que también pueden pasar entre suavizante y ropa mal separada.
 
 Moisés llega a la lavandería con dos tablas de piedra bajo el brazo. No por estilo… por necesidad. El polvo del Sinaí no se va solo. Y ni hablar de los pecados incrustados.
@@ -257,9 +273,17 @@ Moisés sonríe. Descubre que el perdón… también tiene tiempos programados.
 
 Esto fue La Voz del Atril.
 Y si no creés en milagros urbanos, vení a lavar tu conciencia con nosotros. Hay promo 2x1 en misericordia y suavizante.
-      </p>
-    </div>
-    <div class="atril">
+  </p>
+  <div class="compartir-redes">
+    <button onclick="compartirWhatsApp('Moisés en la lavandería autoservicio', 'https://new-voz-del-atril.vercel.app')">🟢 WhatsApp</button>
+    <button onclick="compartirTwitter('Moisés en la lavandería autoservicio', 'https://new-voz-del-atril.vercel.app')">🔵 X</button>
+    <button onclick="compartirInstagram()">🟣 Instagram</button>
+    <button class="btn-copiar" onclick="copiarEnlace()">📋 Copiar</button>
+    <div id="mensajeConfirmacion" class="mensaje"></div>
+  </div>
+</div>
+
+<div class="atril">
   <img src="img/jonas-bondi.png" alt="Jonás dormido en el último asiento del bondi" />
   <h3>Jonás dormido en el último asiento del bondi</h3>
   <audio controls>
@@ -281,33 +305,11 @@ Esto fue La Voz del Atril.
 Si alguna vez te dormiste en el colectivo que lleva tu llamado, Jonás también lo hizo.  
 Pero Dios… sigue esperando en la próxima parada.
   </p>
-
-  <!-- BOTONES COMPARTIR -->
   <div class="compartir-redes">
     <button onclick="compartirWhatsApp('Jonás dormido en el último asiento del bondi', 'https://new-voz-del-atril.vercel.app')">🟢 WhatsApp</button>
-    <button onclick="compartirTwitter('Jonás dormido en el último asiento del bondi', 'https:////new-voz-del-atril.vercel.app')">🔵 X</button>
+    <button onclick="compartirTwitter('Jonás dormido en el último asiento del bondi', 'https://new-voz-del-atril.vercel.app')">🔵 X</button>
     <button onclick="compartirInstagram()">🟣 Instagram</button>
-    <button onclick="copiarEnlace('https:////new-voz-del-atril.vercel.app')">📋 Copiar</button>
+    <button class="btn-copiar" onclick="copiarEnlace()">📋 Copiar</button>
+    <div id="mensajeConfirmacion" class="mensaje"></div>
   </div>
 </div>
-
-  </section>
-   <section class="seccion-parabolas">
-    <h2>Parábolas Urbanas</h2>
-    <p>Pequeñas historias con mensajes gigantes. Compartilas y hacelas circular como sticker espiritual.</p>
-
-    <!-- 📎 Botón para copiar URL -->
-    <button class="btn-copiar" onclick="copiarEnlace()">📎 Copiar URL de esta página</button>
-    <div id="mensajeConfirmacion" class="mensaje"></div>
-  </section>
-
-  <script>
-    function alternarModo() {
-      document.body.classList.toggle('modo-claro');
-    }
-  </script>
-   <footer>
-    <p>&copy; 2025 La Voz del Atril. Narrativa con alma.</p>
-  </footer>
-</body>
-</html>
