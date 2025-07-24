@@ -69,6 +69,14 @@
       font-weight: bold;
     }
 
+    audio {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin-top: 0.6rem;
+}
+
+
     .manifiesto {
       padding: 7rem 2rem 3rem;
       background-color: #1c1c1c;
@@ -175,28 +183,30 @@
     }
    @media (max-width: 768px) {
   nav {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0.5rem 1rem;
-  }
+  padding: 0.6rem 1rem;
+  flex-direction: column;
+  align-items: stretch;
+}
 
-  nav h1 {
-    font-size: 1.2rem;
-    margin-bottom: 0.3rem;
-  }
+nav h1 {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  text-align: center;
+}
 
-  nav ul {
-    flex-direction: column;
-    gap: 0.3rem;
-    margin-top: 0.3rem;
-  }
+nav ul {
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
 
-  .modo-btn {
-    margin-top: 0.5rem;
-    align-self: flex-end;
-    font-size: 0.9rem;
-    padding: 0.2rem 0.6rem;
-  }
+.modo-btn {
+  margin-top: 0.5rem;
+  align-self: flex-end;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+}
+
 }
 
 
