@@ -173,12 +173,40 @@
       text-align: center;
       padding: 20px;
     }
+    @media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .modo-btn {
+    margin-top: 0.8rem;
+    align-self: flex-end;
+  }
+}
+
   </style>
 
   <script>
+    // function alternarModo() {
+    //   document.body.classList.toggle('modo-claro');
+    // }
+
     function alternarModo() {
-      document.body.classList.toggle('modo-claro');
-    }
+  document.body.classList.toggle('modo-claro');
+  const boton = document.getElementById("modoToggle");
+
+  if (document.body.classList.contains("modo-claro")) {
+    boton.textContent = "☀️ Modo claro";
+  } else {
+    boton.textContent = "🌙 Modo oscuro";
+  }
+}
+
 
     function compartirWhatsApp(titulo, url) {
       const mensaje = `🔥 Escuchá esto: ${titulo} – ${url}`;
@@ -230,8 +258,10 @@
       <li><a href="#manifiesto">Manifiesto</a></li>
       <li><a href="#historias-del-atril">Historias</a></li>
     </ul>
-    <button class="modo-btn" onclick="alternarModo()">☀️ / 🌙</button>
-  </nav>
+    <!-- <button class="modo-btn" onclick="alternarModo()">☀️ / 🌙</button> -->
+    <button class="modo-btn" id="modoToggle" onclick="alternarModo()">🌙 Modo oscuro</button>
+
+</nav>
 
   <section class="manifiesto" id="manifiesto">
     <h2>Manifiesto Profético</h2>
